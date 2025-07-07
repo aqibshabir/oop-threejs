@@ -5,6 +5,7 @@ import Camera from './Camera.ts';
 import Renderer from './Renderer.ts';
 import World from './World/World.ts';
 import Resources from './Utils/Resources.ts';
+import sources from './sources.ts';
 
 export default class Experience {
   static instance: Experience;
@@ -26,7 +27,7 @@ export default class Experience {
     this.sizes = new Sizes();
     this.time = new Time();
     this.scene = new THREE.Scene();
-    this.resources = new Resources();
+    this.resources = new Resources(sources);
     this.camera = new Camera();
     this.renderer = new Renderer();
     this.world = new World();

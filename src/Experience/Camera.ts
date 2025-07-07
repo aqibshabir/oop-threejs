@@ -4,9 +4,9 @@ import Experience from './Experience.ts';
 
 export default class Camera {
   experience: Experience;
-  sizes;
-  scene;
-  canvas;
+  sizes: { width: number; height: number; pixelRatio: number };
+  scene: THREE.Scene;
+  canvas: HTMLCanvasElement;
   instance!: THREE.PerspectiveCamera;
   controls!: OrbitControls;
 
@@ -21,7 +21,7 @@ export default class Camera {
   }
   setInstance() {
     this.instance = new THREE.PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 100);
-    this.instance.position.set(6, 4, 8);
+    this.instance.position.set(14, 11, 18);
     this.scene.add(this.instance);
   }
   setControls() {

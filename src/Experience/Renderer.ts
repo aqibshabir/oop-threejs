@@ -1,12 +1,13 @@
 import * as THREE from 'three';
-import Experience from './Experience.js';
+import Experience from './Experience.ts';
+import type Camera from './Camera.ts';
 
 export default class Renderer {
   experience: Experience;
-  canvas;
-  sizes;
-  scene;
-  camera;
+  canvas: HTMLCanvasElement;
+  sizes: { width: number; height: number; pixelRatio: number };
+  scene: THREE.Scene;
+  camera: Camera;
   instance!: THREE.WebGLRenderer;
 
   constructor() {
