@@ -22,5 +22,12 @@ export default class World {
       this.alien = new Alien();
       this.environment = new Environment();
     });
+
+    this.update();
+  }
+  update() {
+    if (this.alien) {
+      this.alien.update();
+    }
   }
 }

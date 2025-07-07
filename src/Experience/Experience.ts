@@ -6,6 +6,7 @@ import Renderer from './Renderer.ts';
 import World from './World/World.ts';
 import Resources from './Utils/Resources.ts';
 import sources from './sources.ts';
+import Debug from './Utils/Debug.ts';
 
 export default class Experience {
   static instance: Experience;
@@ -17,6 +18,7 @@ export default class Experience {
   renderer!: Renderer;
   world!: World;
   resources!: Resources;
+  debug!: Debug;
 
   constructor(canvas: HTMLCanvasElement) {
     if (Experience.instance) return Experience.instance;
@@ -24,6 +26,7 @@ export default class Experience {
 
     window.experience = this;
     this.canvas = canvas;
+    this.debug = new Debug();
     this.sizes = new Sizes();
     this.time = new Time();
     this.scene = new THREE.Scene();
@@ -44,6 +47,7 @@ export default class Experience {
   }
   update() {
     this.camera.update();
+    this.world.update();
     this.renderer.update();
   }
 }
