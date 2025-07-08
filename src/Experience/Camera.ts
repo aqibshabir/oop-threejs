@@ -43,10 +43,10 @@ export default class Camera {
   }
   updateCameraSettings() {
     if (this.sizes.width < 600) {
-      this.instance.position.set(14, 14, 60);
-      this.instance.fov = 45;
+      this.instance.position.set(6, 3, 36);
+      this.instance.fov = 55;
     } else {
-      this.instance.position.set(14, 14, 30);
+      this.instance.position.set(6, 3, 36);
       this.instance.fov = 35;
     }
     this.instance.updateProjectionMatrix();

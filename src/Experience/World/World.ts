@@ -4,6 +4,7 @@ import Environment from './Environment.ts';
 import Resources from '../Utils/Resources.ts';
 import Floor from './Floor.ts';
 import Alien from './Alien.ts';
+import Rock from './Rock.ts';
 
 export default class World {
   experience: Experience;
@@ -12,6 +13,7 @@ export default class World {
   environment?: Environment;
   floor?: Floor;
   alien?: Alien;
+  rocks?: Rock[];
   constructor() {
     this.experience = Experience.instance!;
     this.scene = this.experience.scene;
@@ -20,6 +22,12 @@ export default class World {
     this.resources.on('ready', () => {
       this.floor = new Floor();
       this.alien = new Alien();
+      this.rocks = [
+        new Rock(new THREE.Vector3(4, 10, -24), 10, 2),
+        new Rock(new THREE.Vector3(14, 0, -12), 4, 0),
+        new Rock(new THREE.Vector3(0, 0, 20), 5, 0),
+        new Rock(new THREE.Vector3(-20, 0, -10), 8, 0),
+      ];
       this.environment = new Environment();
     });
 

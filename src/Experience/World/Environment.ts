@@ -42,10 +42,10 @@ export default class Environment {
     this.sunLight.castShadow = true;
     this.sunLight.position.set(-10, 20, 40);
 
-    this.sunLight.shadow.camera.left = -22;
-    this.sunLight.shadow.camera.right = 22;
-    this.sunLight.shadow.camera.top = 22;
-    this.sunLight.shadow.camera.bottom = -22;
+    this.sunLight.shadow.camera.left = -28;
+    this.sunLight.shadow.camera.right = 28;
+    this.sunLight.shadow.camera.top = 28;
+    this.sunLight.shadow.camera.bottom = -28;
 
     this.sunLight.shadow.camera.near = 0.1;
     this.sunLight.shadow.camera.far = 100;

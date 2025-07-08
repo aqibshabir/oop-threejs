@@ -28,6 +28,11 @@ const sources: SourceProps[] = [
     type: 'gltfModel',
     path: 'models/Alien/glTF-Binary/alien.glb',
   },
+  {
+    name: 'rockModel',
+    type: 'gltfModel',
+    path: 'models/Rock/glTF-Binary/rock.glb',
+  },
 ];
 
 export default sources;
