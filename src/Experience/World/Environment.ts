@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import Experience from '../Experience.ts';
 import Resources from '../Utils/Resources.ts';
 import type GUI from 'lil-gui';
+import type Renderer from './Renderer.ts';
 
 interface EnvironmentMapProps {
   intensity: number;
@@ -21,6 +22,8 @@ export default class Environment {
   environmentMap!: EnvironmentMapProps;
   debug: DebugProp;
   debugFolder: GUI;
+  renderer: Renderer;
+  clearColor = { color: '#dba891' };
 
   constructor() {
     this.experience = Experience.instance!;
@@ -28,9 +31,11 @@ export default class Environment {
     this.resources = this.experience.resources;
     this.debug = this.experience.debug;
     this.debugFolder = this.debug.ui.addFolder('Environment');
+    this.renderer = this.experience.renderer;
 
     this.setSunLight();
     this.setEnvironmentMap();
+    this.setSky();
   }
   setSunLight() {
     this.sunLight = new THREE.DirectionalLight('#fff4f0', 3.5);
@@ -45,7 +50,7 @@ export default class Environment {
     this.sunLight.shadow.camera.near = 0.1;
     this.sunLight.shadow.camera.far = 100;
 
-    this.sunLight.shadow.mapSize.set(1024, 1024);
+    this.sunLight.shadow.mapSize.set(2048, 2048);
     this.sunLight.shadow.normalBias = 0.05;
 
     this.scene.add(this.sunLight);
@@ -104,5 +109,13 @@ export default class Environment {
       .step(0.001)
       .onChange(this.environmentMap.updateMaterials);
     this.environmentMap.updateMaterials();
+  }
+  setSky() {
+    this.debugFolder
+      .addColor(this.clearColor, 'color')
+      .name('Sky Color')
+      .onChange(() => {
+        this.renderer.instance.setClearColor(this.clearColor.color);
+      });
   }
 }

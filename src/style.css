@@ -2,3 +2,24 @@ body {
   margin: 0;
   overflow: hidden;
 }
+
+.lil-gui {
+  background-color: rgba(30, 30, 30, 0.4) !important;
+  color: #fff;
+}
+
+.lil-gui .title {
+  background-color: rgba(50, 50, 50, 0.6) !important;
+}
+
+.lil-gui .controller.function button {
+  background-color: white !important;
+  color: black !important;
+  border-radius: 20px;
+  box-shadow: none !important;
+  margin: 2px 20px;
+}
+
+.lil-gui .controller.function button:hover {
+  background-color: rgb(218, 218, 218) !important;
+}
