@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import Experience from '../Experience.ts';
 import Resources from '../Utils/Resources.ts';
 import type GUI from 'lil-gui';
-import type Renderer from './Renderer.ts';
+import type Renderer from '../Renderer.ts';
 
 interface EnvironmentMapProps {
   intensity: number;

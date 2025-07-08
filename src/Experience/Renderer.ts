@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import Experience from './Experience.ts';
 import type Camera from './Camera.ts';
-import type GUI from 'lil-gui';
 
 export default class Renderer {
   experience: Experience;
