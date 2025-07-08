@@ -26,7 +26,7 @@ export default class Floor {
     this.setMesh();
   }
   setGeometry() {
-    this.geometry = new THREE.CircleGeometry(20, 64);
+    this.geometry = new THREE.CircleGeometry(36, 64);
   }
   setTextures() {
     this.textures = {} as TextureProps;

@@ -1,11 +1,16 @@
 import * as THREE from 'three';
 import Experience from '../Experience.ts';
 import Resources from '../Utils/Resources.ts';
+import type GUI from 'lil-gui';
 
 interface EnvironmentMapProps {
   intensity: number;
   texture: THREE.Texture | THREE.CubeTexture;
   updateMaterials?: () => void;
+}
+
+interface DebugProp {
+  ui: GUI;
 }
 
 export default class Environment {
@@ -14,28 +19,64 @@ export default class Environment {
   sunLight!: THREE.DirectionalLight;
   resources: Resources;
   environmentMap!: EnvironmentMapProps;
+  debug: DebugProp;
+  debugFolder: GUI;
 
   constructor() {
     this.experience = Experience.instance!;
     this.scene = this.experience.scene;
     this.resources = this.experience.resources;
+    this.debug = this.experience.debug;
+    this.debugFolder = this.debug.ui.addFolder('Environment');
 
     this.setSunLight();
     this.setEnvironmentMap();
   }
   setSunLight() {
-    this.sunLight = new THREE.DirectionalLight('#ffffff', 3);
+    this.sunLight = new THREE.DirectionalLight('#fff4f0', 3.5);
     this.sunLight.castShadow = true;
-    this.sunLight.shadow.camera.left = -20;
-    this.sunLight.shadow.camera.right = 20;
-    this.sunLight.shadow.camera.top = 20;
-    this.sunLight.shadow.camera.bottom = -20;
-    this.sunLight.shadow.camera.near = -2;
-    this.sunLight.shadow.camera.far = 30;
+    this.sunLight.position.set(-10, 20, 40);
+
+    this.sunLight.shadow.camera.left = -22;
+    this.sunLight.shadow.camera.right = 22;
+    this.sunLight.shadow.camera.top = 22;
+    this.sunLight.shadow.camera.bottom = -22;
+
+    this.sunLight.shadow.camera.near = 0.1;
+    this.sunLight.shadow.camera.far = 100;
+
     this.sunLight.shadow.mapSize.set(1024, 1024);
     this.sunLight.shadow.normalBias = 0.05;
-    this.sunLight.position.set(6, 8, 4);
+
     this.scene.add(this.sunLight);
+
+    this.debugFolder
+      .add(this.sunLight, 'intensity')
+      .name('Sun Intensity')
+      .min(0)
+      .max(10)
+      .step(0.001);
+
+    this.debugFolder
+      .add(this.sunLight.position, 'x')
+      .name('Sun x-axis')
+      .min(-40)
+      .max(40)
+      .step(0.001);
+
+    this.debugFolder
+      .add(this.sunLight.position, 'y')
+      .name('Sun y-axis')
+      .min(20)
+      .max(40)
+      .step(0.001);
+
+    this.debugFolder
+      .add(this.sunLight.position, 'z')
+      .name('Sun z-axis')
+      .min(10)
+      .max(40)
+      .step(0.001);
   }
   setEnvironmentMap() {
     this.environmentMap = {} as EnvironmentMapProps;
@@ -55,6 +96,13 @@ export default class Environment {
         }
       });
     };
+    this.debugFolder
+      .add(this.environmentMap, 'intensity')
+      .name('Environment Intensity')
+      .min(-2)
+      .max(2)
+      .step(0.001)
+      .onChange(this.environmentMap.updateMaterials);
     this.environmentMap.updateMaterials();
   }
 }

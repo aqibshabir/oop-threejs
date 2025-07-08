@@ -1,7 +1,8 @@
 import * as THREE from 'three';
+import EventEmitter from './EventEmitter.ts';
 import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 import type { GLTF } from 'three/examples/jsm/Addons.js';
-import EventEmitter from './EventEmitter.ts';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 interface GltfModelSource {
   name: string;
@@ -61,8 +62,12 @@ export default class Resources extends EventEmitter {
   }
 
   setLoaders() {
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('/draco/gltf/');
+    const gltfLoader = new GLTFLoader();
+    gltfLoader.setDRACOLoader(dracoLoader);
     this.loaders = {
-      gltfLoader: new GLTFLoader(),
+      gltfLoader,
       textureLoader: new THREE.TextureLoader(),
       cubeTextureLoader: new THREE.CubeTextureLoader(),
     };

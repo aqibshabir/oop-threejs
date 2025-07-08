@@ -12,8 +12,7 @@ interface AnimationProps {
 }
 
 interface DebugProp {
-  active: boolean;
-  ui?: GUI;
+  ui: GUI;
 }
 
 export default class Alien {
@@ -25,18 +24,17 @@ export default class Alien {
   animation!: AnimationProps;
   time: Time;
   debug: DebugProp;
-  debugFolder?: GUI;
+  debugFolder: GUI;
+  animationFolder: GUI;
+
   constructor() {
     this.experience = Experience.instance!;
     this.scene = this.experience.scene;
     this.resources = this.experience.resources;
     this.time = this.experience.time;
     this.debug = this.experience.debug;
-
-    if (this.debug.active) {
-      this.debugFolder = this.debug.ui?.addFolder('alien');
-    }
-
+    this.debugFolder = this.debug.ui.addFolder('Alien');
+    this.animationFolder = this.debugFolder.addFolder('Animation');
     this.resource = this.resources.items.alienModel as GLTF;
     this.setModel();
     this.setAnimation();
@@ -75,6 +73,28 @@ export default class Alien {
 
       this.animation.actions.current = newAction;
     };
+
+    const debugObject = {
+      idle: () => {
+        if (this.animation.actions.current !== this.animation.actions.idle) {
+          this.animation.play('idle');
+        }
+      },
+      walk: () => {
+        if (this.animation.actions.current !== this.animation.actions.walking) {
+          this.animation.play('walking');
+        }
+      },
+      jog: () => {
+        if (this.animation.actions.current !== this.animation.actions.jog) {
+          this.animation.play('jog');
+        }
+      },
+    };
+
+    this.animationFolder.add(debugObject, 'idle');
+    this.animationFolder.add(debugObject, 'walk');
+    this.animationFolder.add(debugObject, 'jog');
   }
 
   update() {
