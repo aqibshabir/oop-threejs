@@ -25,7 +25,6 @@ export default class Alien {
   time: Time;
   debug: DebugProp;
   debugFolder: GUI;
-  animationFolder: GUI;
 
   constructor() {
     this.experience = Experience.instance!;
@@ -33,8 +32,8 @@ export default class Alien {
     this.resources = this.experience.resources;
     this.time = this.experience.time;
     this.debug = this.experience.debug;
-    this.debugFolder = this.debug.ui.addFolder('Alien');
-    this.animationFolder = this.debugFolder.addFolder('Animation');
+    this.debugFolder = this.debug.ui.addFolder('Alien Animation');
+    this.debugFolder.close();
     this.resource = this.resources.items.alienModel as GLTF;
     this.setModel();
     this.setAnimation();
@@ -92,9 +91,9 @@ export default class Alien {
       },
     };
 
-    this.animationFolder.add(debugObject, 'idle');
-    this.animationFolder.add(debugObject, 'walk');
-    this.animationFolder.add(debugObject, 'jog');
+    this.debugFolder.add(debugObject, 'idle');
+    this.debugFolder.add(debugObject, 'walk');
+    this.debugFolder.add(debugObject, 'jog');
   }
 
   update() {

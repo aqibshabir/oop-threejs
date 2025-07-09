@@ -31,6 +31,7 @@ export default class Environment {
     this.resources = this.experience.resources;
     this.debug = this.experience.debug;
     this.debugFolder = this.debug.ui.addFolder('Environment');
+    this.debugFolder.close();
     this.renderer = this.experience.renderer;
 
     this.setSunLight();
