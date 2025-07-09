@@ -26,6 +26,7 @@ export default class Camera {
     this.canvas = this.experience.canvas;
     this.debug = this.experience.debug;
     this.debugFolder = this.debug.ui.addFolder('Camera');
+    this.debugFolder.close();
     const debugObject = {
       default: () => this.setCameraAngle('default'),
       birdsEye: () => this.setCameraAngle('birds-eye'),
